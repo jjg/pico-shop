@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Product } from '../product';
+import { CartService } from '../cart.service';
+import { ProductService } from '../product.service';
 
 @Component({
   selector: 'app-cart-contents',
@@ -7,9 +10,26 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CartContentsComponent implements OnInit {
 
-  constructor() { }
+  products: Product[];
+  
+  constructor(
+    private cartService: CartService,
+    private productService: ProductService
+  ) { }
 
   ngOnInit() {
+    this.getProducts();
+  }
+  
+  getProducts(): void {
+    
+    // NOTE: will this loop work as expected?
+    this.cartService.products.forEach(function(productId){
+    
+      this.productService.getProduct(productId)
+        .subscribe(product => this.products.push(product));
+        
+      });
   }
 
 }
