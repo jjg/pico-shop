@@ -1,6 +1,9 @@
 <h2>Shopping Cart</h2>
 <ul class="products">
-  <li *ngFor="let product of products">
-    <span class="badge">{{product.price | currency:'USD'}}</span> {{product.name}}
+  <li *ngFor="let productid of productIds">
+    <span class="badge">{{productid}}</span> foo
   </li>
 </ul>
+<p>
+  <button (click)="onEmptyCart()">Empty cart</button>
+</p>

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Product } from '../product';
 import { ProductService } from '../product.service';
+import { CartService } from '../cart.service';
 
 @Component({
   selector: 'app-products',
@@ -11,7 +12,10 @@ export class ProductsComponent implements OnInit {
 
   products: Product[];
   
-  constructor(private productService: ProductService) { }
+  constructor(
+    private productService: ProductService,
+    private cartService: CartService
+  ) { }
 
   ngOnInit() {
     this.getProducts();
@@ -20,6 +24,11 @@ export class ProductsComponent implements OnInit {
   getProducts(): void {
     this.productService.getProducts()
       .subscribe(products => this.products = products);
+  }
+  
+  onAddToCart(product): void {
+    this.cartService.add(product.id);
+    window.alert(product.name + ' added to cart');
   }
 
 }
