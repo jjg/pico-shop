@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Product } from '../product';
 import { CartService } from '../cart.service';
 import { ProductService } from '../product.service';
+import { Item } from '../item';
 
 @Component({
   selector: 'app-cart-contents',
@@ -10,7 +11,36 @@ import { ProductService } from '../product.service';
 })
 export class CartContentsComponent implements OnInit {
 
-  products: Product[] = [];
+  items: Item[] = [];
+  totalTax: number = 0;
+  totalDuty: number = 0;
+  cartTotal: number = 0;
+  
+  updateItem(product: Product): void {
+    
+    let thisItem = new Item(product);
+    
+    // calculate tax
+    thisItem.tax = 0;
+    if(thisItem.taxable){
+      thisItem.tax = product.price * 0.1;
+      // TODO: round tax as per requirements
+      this.totalTax = this.totalTax + thisItem.tax;
+    }
+    
+    // calculate duty
+    thisItem.duty = 0;
+    if(thisItem.imported){
+      thisItem.duty = product.price * 0.05;
+      // TODO: round duty as per requirements
+      this.totalDuty = this.totalDuty + thisItem.duty;
+    }
+    
+    // update cart total
+    this.cartTotal = this.cartTotal + thisItem.price + thisItem.tax + thisItem.duty;
+    
+    this.items.push(thisItem);
+  }
   
   constructor(
     private cartService: CartService,
@@ -21,16 +51,18 @@ export class CartContentsComponent implements OnInit {
     this.getProducts();
   }
   
-  getProducts(): void {    
+  getProducts(): void {
+  
+    // NOTE: I'm not sure this loop is async-safe
     for (let productId of this.cartService.products) {
       this.productService.getProduct(productId)
-        .subscribe(product => this.products.push(product));    
+        .subscribe(product => this.updateItem(product));    
     }
   }
   
   onEmptyCart(): void {
     this.cartService.empty();
-    this.products = [];
+    this.items = [];
     this.getProducts();
   }
 

@@ -1,10 +1,19 @@
 <h2>Shopping Cart</h2>
 <ul class="products">
-  <li *ngFor="let product of products">
-    <span class="badge">{{product.price | currency:'USD'}}</span> 
-    {{product.name}}
+  <li *ngFor="let item of items">
+    <span class="cart-quantity">1</span> |
+    <span class="cart-product-name">{{item.name}}</span> |
+    <span class="cart-product-base-price">{{item.price | currency:'USD'}}</span> |
+    <span class="cart-product-tax">{{item.tax | currency:'USD'}}</span> |
+    <span class="cart-product-duty">{{item.duty | currency:'USD'}}</span> |
   </li>
 </ul>
+<p>
+  <span class="total-tax">Tax: {{totalTax + totalDuty | currency:'USD'}}</span>
+</p>
+<p>
+  <span class="cart-total">Total: {{cartTotal | currency:'USD'}}</span>
+</p>
 <p>
   <button (click)="onEmptyCart()">Empty cart</button>
 </p>
