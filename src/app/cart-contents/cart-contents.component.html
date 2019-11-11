@@ -3,9 +3,7 @@
   <li *ngFor="let item of items">
     <span class="cart-quantity">1</span> |
     <span class="cart-product-name">{{item.name}}</span> |
-    <span class="cart-product-base-price">{{item.price | currency:'USD'}}</span> |
-    <span class="cart-product-tax">{{item.tax | currency:'USD'}}</span> |
-    <span class="cart-product-duty">{{item.duty | currency:'USD'}}</span> |
+    <span class="cart-product-full-price">{{item.price + item.tax + item.duty | currency:'USD'}}</span> |
   </li>
 </ul>
 <p>

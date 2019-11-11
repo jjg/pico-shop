@@ -24,7 +24,8 @@ export class CartContentsComponent implements OnInit {
     thisItem.tax = 0;
     if(thisItem.taxable){
       thisItem.tax = product.price * 0.1;
-      // TODO: round tax as per requirements
+      // round up based on requirements
+      thisItem.tax =  Math.ceil(thisItem.tax/0.05)*5/100
       this.totalTax = this.totalTax + thisItem.tax;
     }
     
@@ -32,7 +33,8 @@ export class CartContentsComponent implements OnInit {
     thisItem.duty = 0;
     if(thisItem.imported){
       thisItem.duty = product.price * 0.05;
-      // TODO: round duty as per requirements
+      // round up as per requirements
+      thisItem.duty =  Math.ceil(thisItem.duty/0.05)*5/100
       this.totalDuty = this.totalDuty + thisItem.duty;
     }
     
@@ -63,6 +65,9 @@ export class CartContentsComponent implements OnInit {
   onEmptyCart(): void {
     this.cartService.empty();
     this.items = [];
+    this.totalTax = 0;
+    this.totalDuty = 0;
+    this.cartTotal = 0;
     this.getProducts();
   }
 
