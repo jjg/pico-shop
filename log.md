@@ -92,6 +92,9 @@ Branches     : 0% ( 0/4 )
 Functions    : 68.18% ( 15/22 )
 Lines        : 49.12% ( 28/57 )
 ```
+
+The only thing I think I've completely missed is NGRX.  It wasn't obvious to me looking at the website how it applies to this exercise, but I'm sure that's just because I'm new to Angular, and maybe because there's no back-end component to this application?
+
 I think this covers the bases of the exercise.  At this point I'm having a pretty good time with Angular and Typescript, and it would be fun to take the application further, but I should probably call it so I can submit it for review.
 
 
