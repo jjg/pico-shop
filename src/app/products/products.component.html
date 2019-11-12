@@ -1,8 +1,8 @@
 <h2>Products</h2>
 <ul class="products">
   <li *ngFor="let product of products">
-    <span class="badge">{{product.price | currency:'USD'}}</span> 
-    {{product.name}}
+    <p>{{product.name}}</p>
+    <p>{{product.price | currency:'USD'}}</p>
     <p>
       <button (click)="onAddToCart(product)">Add to cart</button>
     </p>

@@ -1,7 +1,6 @@
 <h2>Shopping Cart</h2>
 <ul class="products">
   <li *ngFor="let item of items">
-    <span class="cart-quantity">1</span> |
     <span class="cart-product-name">{{item.name}}</span> |
     <span class="cart-product-full-price">{{item.price + item.tax + item.duty | currency:'USD'}}</span> |
   </li>
